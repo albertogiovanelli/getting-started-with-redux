@@ -6,17 +6,15 @@ import TodoList from '../components/TodoList';
 import {toggleTodo} from '../actions/todoActions';
 import {getVisibleTodos} from '../utils/getVisibileTodos';
 
-const mapStateToProps = (state) => {
-    return {
-        todos: getVisibleTodos(state.todos, state.visibilityFilter)
-    }
-};
+const mapStateToProps = (state) => ({
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onTodoClick : (id) => dispatch(toggleTodo(id))
+const mapDispatchToProps = (dispatch) => ({
+    onTodoClick(id) {
+        dispatch(toggleTodo(id))
     }
-};
+});
 
 export default connect(
     mapStateToProps,
