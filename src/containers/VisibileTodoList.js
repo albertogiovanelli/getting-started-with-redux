@@ -5,9 +5,10 @@ import {connect} from 'react-redux';
 import TodoList from '../components/TodoList';
 import {toggleTodo} from '../actions/todoActions';
 import {getVisibleTodos} from '../utils/getVisibileTodos';
+import {withRouter} from 'react-router-dom';
 
-const mapStateToProps = (state) => ({
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+const mapStateToProps = (state, {match}) => ({
+    todos: getVisibleTodos(state.todos, match.params.filter || 'all')
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -16,7 +17,9 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
-export default connect(
+const VisibleTodoList = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(TodoList);
+)(TodoList));
+
+export default VisibleTodoList;
